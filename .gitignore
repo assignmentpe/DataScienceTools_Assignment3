@@ -2,6 +2,8 @@
 .Rhistory
 .RData
 .Rproj.user/
+# Written when a script plots to a default device outside RStudio
+Rplots.pdf
 
 # ---- Windows / editor junk -------------------------------------------
 Thumbs.db

@@ -9,4 +9,4 @@
 "Of 1000 random vectors, type 7 differs from Tukey's hinges","521 (52.1%)"
 "Hand spot-check","PASS"
 "coef argument honoured","yes"
-"Average seconds per call, 10,002 values","7e-04"
+"Average seconds per call, 10,002 values","0.00085"

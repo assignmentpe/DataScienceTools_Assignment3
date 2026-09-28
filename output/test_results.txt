@@ -3,7 +3,7 @@
   remove_outliers() - Prompting R Functions with AI
   BDA400 / Data Science Tools and Techniques - Paula Eriya
   R version 4.6.1 (2026-06-24 ucrt)
-  29 September 2026 at 00:11
+  29 September 2026 at 00:45
 ==========================================================================
 
 --------------------------------------------------------------------------
@@ -237,7 +237,7 @@ PART 6  Speed test on 10,002 synthetic values
 
   values per call : 10002
   calls made      : 200
-  average per call: 7e-04 seconds
+  average per call: 0.00085 seconds
   outliers found  : 2  (expected 2 - the two added on purpose)
   values found    :  9000, -9000
   The answer is identical on all 200 calls, so the function keeps no state between calls.

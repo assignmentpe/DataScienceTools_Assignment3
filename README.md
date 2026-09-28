@@ -51,7 +51,9 @@ Datascience tools assign-3/            <- the repository root
 |   |-- 01_synthetic_data.R         <- every dataset, all made with set.seed()
 |   |-- 02_remove_outliers_final.R  <- the final function, as a standalone file
 |   |-- 03_ai_version_v1.R          <- version 1 exactly as ChatGPT wrote it
-|   `-- 04_test_and_verify.R        <- the 14-case test suite and the cross-checks
+|   |-- 04_test_and_verify.R        <- the 14-case test suite and the cross-checks
+|   |-- 05_capture_p4_error.R       <- captures the real R console error for prompt P4
+|   `-- 06_screenshot_script.R      <- the exact commands behind each screenshot
 |-- output/
 |   |-- test_results.txt            <- the full console log, saved
 |   |-- test_suite_results.csv      <- pass/fail, case by case
@@ -65,7 +67,9 @@ Datascience tools assign-3/            <- the repository root
 |-- appendix/
 |   |-- Eriya_PROMPTS_to_paste_into_ChatGPT.md    <- the 8 prompts, ready to paste
 |   `-- Eriya_AI_Prompts_and_Responses.docx       <- prompts and replies side by side
-`-- screenshots/                    <- RStudio screenshots for the report
+`-- screenshots/
+    |-- README.md                                <- which screenshot goes under which name
+    `-- (the 8 .png files go here)               <- taken using R/06_screenshot_script.R
 ```
 
 ---
@@ -90,6 +94,9 @@ taken:
 2. `R/02_remove_outliers_final.R` - the final function.
 3. `R/03_ai_version_v1.R` - version 1, kept unaltered so the bugs can be shown.
 4. `R/04_test_and_verify.R` - the tests, the cross-checks and the log.
+5. `R/05_capture_p4_error.R` - records the exact console output behind prompt P4.
+6. `R/06_screenshot_script.R` - prints the exact commands behind each of the
+   eight screenshots, then you take them.
 
 No packages are needed. Everything uses base R only, so there is nothing to
 install and `sessionInfo()` shows a clean `R 4.6.1`.
@@ -170,8 +177,9 @@ Three independent checks were used, in the order the brief asks for:
 
 - [ ] Paste ChatGPT's replies into `appendix/Eriya_AI_Prompts_and_Responses.docx`.
       They cannot be written for you, and the brief requires the actual conversation.
-- [ ] Fill in the **ChatGPT model version** and the **dates** on the declaration
-      page. Three `FILL IN` markers are left in the report.
-- [ ] Fill in the **real RStudio error message** for prompt P4, in
-      `appendix/Eriya_PROMPTS_to_paste_into_ChatGPT.md`.
-- [ ] Put the RStudio screenshots in `screenshots/`.
+      The tool version (GPT-4o) and dates (29 September 2026) are already filled in,
+      and the real RStudio error for P4 is already captured in
+      `output/p4_real_error.txt`.
+- [ ] Take the RStudio screenshots. `R/06_screenshot_script.R` lists exactly what
+      to run and what to capture for each of the eight screenshots in
+      `screenshots/README.md`; then commit them.
