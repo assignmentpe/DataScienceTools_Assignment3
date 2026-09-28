@@ -1,0 +1,25 @@
+R version:  R version 4.6.1 (2026-06-24 ucrt)
+Captured by: R/05_capture_p4_error.R
+Under test:  R/03_ai_version_v1.R, unaltered
+
+### all values missing
+> remove_outliers_v1(c(NA, NA, NA))
+Error in if (any(x < lower_bound) || any(x > upper_bound)) {     x_clean <- x[x >= lower_bound & x <= upper_bound]     return(x_clean) } : 
+  missing value where TRUE/FALSE needed
+
+### one missing value, no outlier present
+> remove_outliers_v1(c(5, NA, 7, 6, 8))
+Error in if (any(x < lower_bound) || any(x > upper_bound)) {     x_clean <- x[x >= lower_bound & x <= upper_bound]     return(x_clean) } : 
+  missing value where TRUE/FALSE needed
+
+### text instead of numbers
+> remove_outliers_v1(c("a", "b", "c"))
+Error in (1 - h) * qs[i] : 
+  non-numeric argument to binary operator
+
+### missing values plus a real outlier
+> remove_outliers_v1(c(10, 15, NA, 999, 20, 25, NA))
+NO ERROR. It returned: 10, 15, NA, 20, 25, NA
+
+The 999 was removed, but both NA values came back inside the result
+that the function called clean, and nothing warned about it.

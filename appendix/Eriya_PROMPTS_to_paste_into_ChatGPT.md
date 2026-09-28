@@ -67,17 +67,72 @@ Explain what each line of the R code does and how you might test if it works cor
 > **Do this one only after you have actually run the function in RStudio.**
 > Copy the *real* red error message out of the R console into the prompt.
 
+> **Already filled in.** The error below was produced by running the unaltered
+> version 1 function on R 4.6.1, and it is saved as evidence in
+> `output/p4_real_error.txt`. To see it yourself, run
+> `Rscript R/05_capture_p4_error.R` from the repository root, or type the three
+> lines into the R console.
+
 ```
 I ran your function in RStudio and it gave this error:
 
-<PASTE THE REAL ERROR MESSAGE FROM THE R CONSOLE HERE>
+> remove_outliers_v1(c(NA, NA, NA))
+Error in if (any(x < lower_bound) || any(x > upper_bound)) {     x_clean <- x[x >= lower_bound & x <= upper_bound]     return(x_clean) } : 
+  missing value where TRUE/FALSE needed
 
 Here is the function I ran:
 
-<PASTE THE FUNCTION HERE>
+remove_outliers_v1 <- function(x, iqr_multiplier = 1.5) {
+
+  Q1 <- quantile(x, 0.25, na.rm = TRUE)
+  Q3 <- quantile(x, 0.75, na.rm = TRUE)
+  IQR <- Q3 - Q1
+
+  lower_bound <- Q1 - iqr_multiplier * IQR
+  upper_bound <- Q3 + iqr_multiplier * IQR
+
+  if (any(x < lower_bound) || any(x > upper_bound)) {
+    x_clean <- x[x >= lower_bound & x <= upper_bound]
+    return(x_clean)
+  }
+
+  return(x)
+}
 
 Please fix the error and explain what caused it.
 ```
+
+### Two more things I found while I was in the console
+
+The same prompt also carries the second error, because it is the same class of
+mistake, and the silent failure, because it is worse than either error. All four
+cases are saved in `output/p4_real_error.txt`.
+
+**Error 2 - text instead of numbers.** Add this to the prompt as well, so
+ChatGPT can see the second failure:
+
+```
+> remove_outliers_v1(c("a", "b", "c"))
+Error in (1 - h) * qs[i] : 
+  non-numeric argument to binary operator
+```
+
+**The failure that is not an error at all.** This one is worth putting in the
+prompt, because it is the reason the function cannot be trusted:
+
+```
+> remove_outliers_v1(c(10, 15, NA, 999, 20, 25, NA))
+```
+
+Nothing is printed. No error, no warning. The function returns
+
+```
+10, 15, NA, 20, 25, NA
+```
+
+The 999 was correctly removed, but both `NA` values were handed straight back
+inside the "clean" vector. It claims success and gives a wrong answer. Please
+fix that one as well.
 
 **PASTE CHATGPT'S REPLY HERE**
 
