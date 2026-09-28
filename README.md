@@ -1,12 +1,21 @@
-# Assignment 3 - Prompting R Functions with AI
+# BDA400 Assignment 3 - Prompting R Functions with AI
 
 **Module:** BDA400 / Data Science Tools and Techniques
 **Student:** Paula Eriya
 **Weight:** 5% of the module grade  |  **Due:** Session 5
 
 An R function, `remove_outliers()`, was written with ChatGPT through a sequence of
-prompts, then debugged and verified by hand. This folder holds the prompts, both
-versions of the function, the test evidence and the written report.
+prompts, then debugged and verified by hand. This repository holds the prompts,
+both versions of the function, the test evidence and the written report.
+
+| | |
+|---|---|
+| **Task** | Write an R function using AI prompts, then test and debug it |
+| **Function** | `remove_outliers(x, coef, method, na.rm, return)` |
+| **AI tool used** | ChatGPT (prompts in `appendix/`) |
+| **R version** | 4.6.1, base R only, no packages needed |
+| **Headline result** | AI version 1 failed 3 of 14 tests; the final version passes 14 of 14 |
+| **Submit** | `Paula_Eriya_CA_BDA400_A03.pdf` |
 
 > **AI Assistance Declaration.** ChatGPT was used to write and revise the R
 > function. All final calculations, all verification and all conclusions are my
@@ -32,7 +41,7 @@ The PDF and the reflection are the two documents the brief asks for by name. The
 ## Folder layout
 
 ```
-Assignment3/
+Datascience tools assign-3/            <- the repository root
 |-- Paula_Eriya_CA_BDA400_A03.pdf    <- the report, submit this
 |-- Paula_Eriya_CA_BDA400_A03.docx
 |-- Eriya_Reflection.docx
@@ -66,9 +75,9 @@ Assignment3/
 **The quickest way** - open the project and run one file:
 
 1. Open RStudio.
-2. `File > Open Project...` and choose `Assignment3/Assignment3.Rproj`.
-   Opening the *project* sets the working folder to `Assignment3/`, which is what
-   makes the relative paths work.
+2. `File > Open Project...` and choose `Assignment3.Rproj` in this folder.
+   Opening the *project* sets the working folder to the repository root, which is
+   what makes the relative paths work.
 3. Open `Eriya_AI_RFunction_Assignment.R` and click **Source**.
 
 That single file is self-contained. It defines version 1, defines the final
