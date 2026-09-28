@@ -1,0 +1,252 @@
+==========================================================================
+  ASSIGNMENT 3 - TEST AND VERIFICATION LOG
+  remove_outliers() - Prompting R Functions with AI
+  BDA400 / Data Science Tools and Techniques - Paula Eriya
+  R version 4.6.1 (2026-06-24 ucrt)
+  29 September 2026 at 00:11
+==========================================================================
+
+--------------------------------------------------------------------------
+PART 1  Version 1, the AI code, run on every test case
+--------------------------------------------------------------------------
+  hand-checkable example
+      input  :  10,  15, 999,  20,  25
+      output : 10, 15, 20, 25
+
+  clean, no outliers
+      input  : 12, 15, 18, 22, 25
+      output : 12, 15, 18, 22, 25
+
+  one high outlier
+      input  :  10,  12,  14,  16,  18,  20, 999
+      output : 10, 12, 14, 16, 18, 20
+
+  one low outlier
+      input  : -500,   10,   12,   14,   16,   18,   20
+      output : 10, 12, 14, 16, 18, 20
+
+  outliers on both sides
+      input  : -1000,    10,    12,    14,    16,    18,  1000
+      output : 10, 12, 14, 16, 18
+
+  contains NA
+      input  :  10,  15,  NA, 999,  20,  25,  NA
+      output : 10, 15, NA, 20, 25, NA
+      >>> PROBLEM: missing values came back inside the
+      >>> 'cleaned' vector. Nothing warned about this.
+
+  all values identical
+      input  : 7, 7, 7, 7, 7, 7, 7, 7
+      output : 7, 7, 7, 7, 7, 7, 7, 7
+
+  only two observations
+      input  : 3, 9
+      output : 3, 9
+
+  single observation
+      input  : 42
+      output : 42
+
+  ties and decimals
+      input  :  1.5,  1.5,  2.0,  2.0, 40.0
+      output : 1.5, 1.5, 2.0, 2.0
+
+  realistic revenue
+      input  : 72.64, 27.60, 43.88, 50.22, 44.80, 34.71 ... 49.07, 90.71, 39.03  [200 values in total]
+      output : 72.64, 27.60, 43.88, 50.22, 44.80, 34.71 ... 44.79, 49.07, 39.03  [193 values in total]
+
+  empty vector
+      input  : (none)
+      output : (none)
+
+  all NA
+      input  : NA, NA, NA
+      ERROR: missing value where TRUE/FALSE needed
+
+  text instead of numbers
+      input  : a, b, c
+      ERROR: non-numeric argument to binary operator
+
+  VERSION 1 TALLY
+    raised an error on            : 2 of 14
+    silently returned NA values   : 1 of 14
+    errors that named the argument: 0 of 14
+
+--------------------------------------------------------------------------
+PART 2  The final function as a pass / fail test suite
+--------------------------------------------------------------------------
+
+  [PASS]  hand-checkable example
+              outliers: 999
+  [PASS]  clean, no outliers
+              outliers: (none)
+  [PASS]  one high outlier
+              outliers: 999
+  [PASS]  one low outlier
+              outliers: -500
+  [PASS]  outliers on both sides
+              outliers: -1000,  1000
+  [PASS]  contains NA
+              outliers: 999
+  [PASS]  all values identical
+              outliers: (none)
+  [PASS]  only two observations
+              outliers: (none)
+  [PASS]  single observation
+              outliers: (none)
+  [PASS]  ties and decimals
+              outliers: 40
+  [PASS]  realistic revenue
+              outliers: 100.40, 114.82,  94.41,  92.23, 141.31,  90.71
+  [PASS]  empty vector
+              correctly stopped with a clear message
+  [PASS]  all NA
+              correctly stopped with a clear message
+  [PASS]  text instead of numbers
+              correctly stopped with a clear message
+
+  SCORE: 14 passed, 0 failed, out of 14 tests.
+
+--------------------------------------------------------------------------
+PART 3  Independent cross-check against R's boxplot.stats()
+--------------------------------------------------------------------------
+
+  hand-checkable example
+     R boxplot.stats() : 999
+     remove_outliers()  : 999
+     verdict            : AGREE
+
+  clean, no outliers
+     R boxplot.stats() : (none)
+     remove_outliers()  : (none)
+     verdict            : AGREE
+
+  one high outlier
+     R boxplot.stats() : 999
+     remove_outliers()  : 999
+     verdict            : AGREE
+
+  one low outlier
+     R boxplot.stats() : -500
+     remove_outliers()  : -500
+     verdict            : AGREE
+
+  outliers on both sides
+     R boxplot.stats() : -1000,  1000
+     remove_outliers()  : -1000,  1000
+     verdict            : AGREE
+
+  contains NA
+     R boxplot.stats() : 999
+     remove_outliers()  : 999
+     verdict            : AGREE
+
+  all values identical
+     R boxplot.stats() : (none)
+     remove_outliers()  : (none)
+     verdict            : AGREE
+
+  only two observations
+     R boxplot.stats() : (none)
+     remove_outliers()  : (none)
+     verdict            : AGREE
+
+  single observation
+     R boxplot.stats() : (none)
+     remove_outliers()  : (none)
+     verdict            : AGREE
+
+  ties and decimals
+     R boxplot.stats() : 40
+     remove_outliers()  : 40
+     verdict            : AGREE
+
+  realistic revenue
+     R boxplot.stats() :  90.71,  92.23,  94.41, 100.40, 114.82, 141.31
+     remove_outliers()  :  90.71,  92.23,  94.41, 100.40, 114.82, 141.31
+     verdict            : AGREE
+
+  empty vector
+     R boxplot.stats() : (none)
+     remove_outliers()  : (error)
+     verdict            : n/a
+
+  all NA
+     R boxplot.stats() : (none)
+     remove_outliers()  : (error)
+     verdict            : n/a
+
+  text instead of numbers
+     R boxplot.stats() : (error)
+     remove_outliers()  : (error)
+     verdict            : n/a
+
+  CROSS-CHECK SUMMARY
+    agree  : 11
+    differ : 0
+
+  THE MAIN TECHNICAL FINDING
+  R does not have one definition of a quartile. R's own
+  boxplot.stats() uses stats::fivenum() (Tukey's hinges), while the
+  quantile() call almost every tutorial uses is type 7. On 1000 random vectors these two gave different quartiles on 521 of them (52.1%).
+  So a perfectly correct function can still disagree with R's own
+  boxplot, and both answers are right. That is why remove_outliers()
+  takes a method argument, and why its default is "tukey".
+
+--------------------------------------------------------------------------
+PART 4  Self spot-check - worked out by hand
+--------------------------------------------------------------------------
+  method = "quantile" here, because type 7 is what Excel's
+  QUARTILE.INC calculates, so this is the version the spreadsheet
+  in crosscheck/ can check.
+
+  x                          = 10, 15, 999, 20, 25
+  sorted                     = 10, 15, 20, 25, 999
+  n                          = 5
+  Q1 = quantile(., 0.25)     = 15
+  Q3 = quantile(., 0.75)     = 25
+  IQR = Q3 - Q1              = 10
+  lower fence = Q1 - 1.5*IQR = 0
+  upper fence = Q3 + 1.5*IQR = 40
+  below the lower fence      : (none)
+  above the upper fence      : 999
+  worked out by hand         : 10, 15, 20, 25
+  remove_outliers() says     : 10, 15, 20, 25
+  SPOT-CHECK: PASS
+
+  the same arithmetic as it is laid out in the spreadsheet:
+
+--------------------------------------------------------------------------
+PART 5  The coef argument is actually used
+--------------------------------------------------------------------------
+
+  coef = 0.5  fences [   15.31,    61.91]  ->  36 outliers
+  coef = 1    fences [    3.66,    73.56]  ->  14 outliers
+  coef = 1.5  fences [   -7.99,    85.21]  ->   6 outliers
+  coef = 2    fences [  -19.64,    96.86]  ->   3 outliers
+  coef = 2.5  fences [  -31.29,   108.51]  ->   2 outliers
+  coef = 3    fences [  -42.94,   120.16]  ->   1 outliers
+
+  Raising coef widens the fences, so fewer values are flagged.
+  That is correct, and it is impossible with version 1, which always
+  applies 1.5 and offers no way to change it.
+
+--------------------------------------------------------------------------
+PART 6  Speed test on 10,002 synthetic values
+--------------------------------------------------------------------------
+
+  values per call : 10002
+  calls made      : 200
+  average per call: 7e-04 seconds
+  outliers found  : 2  (expected 2 - the two added on purpose)
+  values found    :  9000, -9000
+  The answer is identical on all 200 calls, so the function keeps no state between calls.
+
+==========================================================================
+  SUMMARY
+==========================================================================
+
+  written: output/test_results.txt, test_suite_results.csv,
+           crosscheck_boxplot_stats.csv, hand_check_steps.csv,
+           coef_test.csv, summary_of_checks.csv
+==========================================================================

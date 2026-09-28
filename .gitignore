@@ -1,0 +1,19 @@
+# ---- R / RStudio temporary files -------------------------------------
+.Rhistory
+.RData
+.Rproj.user/
+
+# ---- Windows / editor junk -------------------------------------------
+Thumbs.db
+desktop.ini
+
+# ---- Word and Excel owner files, left behind if a document is
+#      closed without Word or Excel exiting cleanly
+~$*.docx
+~$*.doc
+~$*.xlsx
+~$*.xls
+
+# ---- Large or unnecessary files --------------------------------------
+*.zip
+*.tmp
